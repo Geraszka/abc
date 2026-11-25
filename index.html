@@ -18,40 +18,46 @@
 --outline:#899294;--outline-variant:#3f484a;--error:#ffb4ab;--ok:#6fd68f}}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;min-height:100%}
-body{background:var(--surface);color:var(--on-surface);font-family:Roboto,"Segoe UI",system-ui,"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;display:flex;justify-content:center;padding:env(safe-area-inset-top,0px) 16px env(safe-area-inset-bottom,0px)}
-main{width:100%;max-width:420px;display:flex;flex-direction:column;gap:12px;padding:14px 0 18px;align-items:stretch}
+body{background:var(--surface);color:var(--on-surface);font-family:Roboto,"Segoe UI",system-ui,"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;display:flex;justify-content:center;padding:env(safe-area-inset-top,0px) 16px 0}
+main{width:100%;max-width:420px;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;gap:10px;padding:12px 0 0;align-items:stretch}
 h1{margin:0;font-size:1.5rem;font-weight:500;flex:1}
 .top,.sub{display:flex;align-items:center;gap:8px}
 .sub{justify-content:space-between}
+.subr{display:flex;gap:8px}
 svg{display:block}
-button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:8px;touch-action:manipulation;user-select:none;-webkit-user-select:none}
 button::after{content:"";position:absolute;inset:0;background:currentColor;opacity:0;transition:opacity .15s}
 button:hover::after{opacity:.08}button:active::after{opacity:.14}
 button:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+button:disabled{opacity:.35;cursor:default}
 .tonal{background:var(--secondary-container);color:var(--on-secondary-container)}
 .filled{background:var(--primary);color:var(--on-primary)}
 .round{width:48px;height:48px;border-radius:16px;font-size:1.5rem;flex:none}
+.helpbtn{color:#f5b301}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.14)}}
+.pulse{animation:pulse .9s infinite}
 .flag{display:block;width:32px;height:24px;object-fit:cover;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.25)}
 .flag.fb{display:flex;align-items:center;justify-content:center;background:var(--surface-container);font-size:.7rem;font-weight:700}
 #stars{display:flex}
-.subr{display:flex;gap:8px}
-.helpbtn{color:#f5b301}
-.star{width:40px;height:48px;opacity:.3;border-radius:12px;color:#f5b301}
+.star{width:38px;height:48px;opacity:.3;border-radius:12px;color:#f5b301}
 .star.on{opacity:1}
 /* a rejtvény */
-.card{display:flex;align-items:center;justify-content:center;background:var(--surface-container);border-radius:32px;padding:10px;min-height:0}
+.card{display:flex;align-items:center;justify-content:center;background:var(--surface-container);border-radius:32px;padding:8px}
 .big{font-size:min(34vw,26vh,10.5rem);font-size:min(34vw,26dvh,10.5rem);line-height:1.15;text-align:center}
+body.kbon .big{font-size:min(28vw,17vh,8.5rem);font-size:min(28vw,17dvh,8.5rem)}
 @keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.18)}100%{transform:scale(1)}}
 .card.pop .big{animation:pop .5s}
-.art{display:flex;justify-content:center;gap:3px;min-height:0;font-size:1.15rem;font-weight:500;color:var(--on-surface-variant);letter-spacing:.04em}
+.art{display:flex;justify-content:center;gap:3px;font-size:1.15rem;font-weight:500;color:var(--on-surface-variant);letter-spacing:.04em}
 .art:empty{display:none}
-.word{--sw:min(50px,calc((min(100vw,420px) - 32px - (var(--n) - 1)*6px)/var(--n)));display:flex;justify-content:center;gap:6px;margin-top:2px}
-.slot{width:var(--sw);height:calc(var(--sw)*1.35);border-bottom:4px solid var(--on-surface);display:flex;align-items:flex-end;justify-content:center;font-size:calc(var(--sw)*.82);font-weight:700;line-height:1;transition:border-color .15s}
-.slot{position:relative}
+.word{--sw:min(50px,calc((min(100vw,420px) - 32px - (var(--n) - 1)*6px)/var(--n)));display:flex;justify-content:center;align-items:flex-start;gap:6px;margin-top:2px}
+.grp{position:relative;display:flex;gap:6px;padding-bottom:15px}
+.grp::after{content:"";position:absolute;left:1px;right:1px;bottom:1px;height:9px;border:2.5px solid var(--outline);border-top:0;border-radius:0 0 7px 7px;opacity:.75}
+.slot{position:relative;width:var(--sw);height:calc(var(--sw)*1.35);border-bottom:4px solid var(--on-surface);display:flex;align-items:flex-end;justify-content:center;font-size:calc(var(--sw)*.82);font-weight:700;line-height:1;transition:border-color .15s;cursor:pointer}
 .slot .ch{display:block;padding-bottom:2px;color:var(--primary);min-height:1em}
 .slot.given .ch,.slot.lock .ch{color:var(--on-surface)}
+.slot.given,.slot.lock{cursor:default}
 .slot input{position:absolute;inset:0;width:100%;height:100%;opacity:0;border:0;padding:0;margin:0;background:transparent;color:transparent;caret-color:transparent;font-size:16px;text-transform:uppercase;outline:none}
-.slot:focus-within{background:var(--primary-container);border-radius:8px 8px 0 0}
+.slot.cur{background:var(--primary-container);border-bottom-color:var(--primary);border-radius:8px 8px 0 0}
 @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-4px)}40%{transform:translateX(4px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
 .slot.bad{border-bottom-color:var(--error)}
 .slot.bad .ch{color:var(--error);animation:shake .4s}
@@ -60,7 +66,13 @@ button:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
 .msg{min-height:1.4em;margin:2px 0 0;text-align:center;color:var(--on-surface-variant)}
 .msg.ok{color:var(--ok);font-weight:700;font-size:1.15rem}
 .msg.err{color:var(--error);font-weight:500}
-#hold{position:fixed;left:0;bottom:0;width:1px;height:1px;opacity:0;border:0;padding:0;pointer-events:none}
+/* saját billentyűzet */
+#kb{position:sticky;bottom:0;margin-top:auto;padding:8px 0 calc(6px + env(safe-area-inset-bottom,0px));background:var(--surface);display:flex;flex-direction:column;gap:5px}
+#kb[hidden]{display:none}
+.krow{display:flex;gap:4px}
+.key{flex:1 1 0;min-width:0;height:clamp(36px,5.8vh,46px);height:clamp(36px,5.8dvh,46px);border-radius:10px;font-size:1.15rem;font-weight:600;background:var(--secondary-container);color:var(--on-secondary-container);padding:0}
+.key.wide{flex:1.5 1 0;font-size:1rem}
+.key.back{flex:1.5 1 0;background:var(--surface-high)}
 /* felugró ablakok */
 .modal{position:fixed;inset:0;background:var(--scrim);display:flex;align-items:center;justify-content:center;padding:16px;z-index:10}
 .modal[hidden]{display:none}
@@ -71,6 +83,8 @@ button:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
 .opt{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:16px;border:1px solid var(--outline-variant);width:100%;text-align:start;justify-content:flex-start}
 .opt.on{background:var(--secondary-container);border-color:var(--primary);box-shadow:inset 0 0 0 1px var(--primary)}
 .opt .nm{font-weight:500}
+.opt .txt{display:flex;flex-direction:column;gap:2px}
+.opt .ds{font-size:.82rem;color:var(--on-surface-variant)}
 .hint{margin:8px 0 0;font-size:.9rem;color:var(--on-surface-variant)}
 .aboutlink{font-size:.85rem;padding:8px 14px;border-radius:18px;color:var(--on-surface-variant)}
 .mbox h3{margin:16px 0 4px;font-size:1rem}
@@ -81,22 +95,27 @@ button:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
 <main>
   <header class="top">
     <h1 data-i18n="title"></h1>
+    <button id="setBtn" class="tonal round" data-icon="keyboard"></button>
     <button id="langBtn" class="tonal round"></button>
   </header>
   <div class="sub">
     <div id="stars" role="group"></div>
-    <span class="subr"><button id="helpBtn" class="tonal round helpbtn" data-icon="bulb"></button><button id="skipBtn" class="filled round" data-icon="skip"></button></span>
+    <span class="subr">
+      <button id="helpBtn" class="tonal round helpbtn" data-icon="bulb"></button>
+      <button id="prevBtn" class="tonal round" data-icon="prev"></button>
+      <button id="nextBtn" class="filled round" data-icon="next"></button>
+    </span>
   </div>
   <div id="card" class="card"><div id="emoji" class="big" role="img"></div></div>
   <div id="art" class="art" aria-hidden="true"></div>
   <div id="word" class="word"></div>
   <p class="msg" id="msg" aria-live="polite"></p>
+  <div id="kb" hidden></div>
 </main>
-<input id="hold" type="text" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" tabindex="-1" aria-hidden="true">
 
-<div class="modal" id="mlang" hidden role="dialog" aria-modal="true"><div class="mbox">
-  <div class="mhead"><strong data-i18n="language"></strong><button class="mclose tonal" data-icon="close"></button></div>
-  <div id="langlist" class="optlist"></div>
+<div class="modal" id="mset" hidden role="dialog" aria-modal="true"><div class="mbox">
+  <div class="mhead"><strong data-i18n="settings"></strong><button class="mclose tonal" data-icon="close"></button></div>
+  <div id="setlist" class="optlist"></div>
   <p style="text-align:center;margin:14px 0 0"><button id="aboutBtn" class="aboutlink" aria-label="Licenses">ⓘ Licenses</button></p>
 </div></div>
 
@@ -115,7 +134,7 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</pre>
   <h3>Material Icons · Apache License 2.0</h3>
-  <p class="hint">Some interface icons (close, star, skip, lightbulb) are Google Material Icons, licensed under the Apache License, Version 2.0 (www.apache.org/licenses/LICENSE-2.0).</p>
+  <p class="hint">Some interface icons (close, star, lightbulb, previous/next, keyboard, backspace) are Google Material Icons, licensed under the Apache License, Version 2.0 (www.apache.org/licenses/LICENSE-2.0).</p>
 </div></div>
 
 <script src="lang.js"></script>
@@ -132,8 +151,11 @@ function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()
 // Material ikonok (Apache 2.0)
 var ICONS={close:'M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z',
  star:'M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z',
- skip:'M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z',
- bulb:'M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z'};
+ next:'M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z',
+ prev:'M6 6h2v12H6zm3.5 6l8.5 6V6z',
+ bulb:'M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z',
+ backspace:'M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.9.89 1.59.89h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-3 12.59L17.59 17 14 13.41 10.41 17 9 15.59 12.59 12 9 8.41 10.41 7 14 10.59 17.59 7 19 8.41 15.41 12 19 15.59z',
+ keyboard:'M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 2H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm0-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z'};
 function icon(n){return '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="'+ICONS[n]+'"/></svg>';}
 
 // --- nyelv: mentett választás, különben az eszköz nyelve (hu / es), különben magyar ---
@@ -141,11 +163,10 @@ var LANGS=window.LANGS,LORDER=Object.keys(LANGS),lang=lsGet('abcLang');
 if(!LANGS[lang]){
   lang='hu';
   var tg=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||'hu'];
-  for(var i=0;i<tg.length;i++){var b=String(tg[i]).slice(0,2).toLowerCase();if(LANGS[b]){lang=b;break;}}
+  for(var ti=0;ti<tg.length;ti++){var b0=String(tg[ti]).slice(0,2).toLowerCase();if(LANGS[b0]){lang=b0;break;}}
 }
 function t(k){return (LANGS[lang]&&LANGS[lang][k])||(LANGS.hu&&LANGS.hu[k])||k;}
-// zászló: flags/<kód>.svg, ha hiányzik, a kód kétbetűs jele
-function flagEl(k){
+function flagEl(k){   // flags/<kód>.svg, ha hiányzik, a kód kétbetűs jele
   var code=LANGS[k].flag||'';
   var im=document.createElement('img');im.className='flag';im.width=32;im.height=24;im.alt='';
   im.addEventListener('error',function(){if(im.parentNode)im.parentNode.replaceChild(mk('span','flag fb',(code||k).toUpperCase().slice(0,4)),im);});
@@ -153,8 +174,12 @@ function flagEl(k){
   return im;
 }
 
-// --- nehézség: 1 = kezdőbetű + a betűk ~40%-a adott, 2 = a betűk ~25%-a adott, 3 = semmi sincs beírva ---
+// --- beállítások: nehézség és billentyűzet ---
 var level=parseInt(lsGet('abcLevel'),10);if(!(level>=1&&level<=3))level=1;
+function coarse(){try{return window.matchMedia('(pointer:coarse)').matches;}catch(e){return false;}}
+var kbMode=lsGet('abcKb');if(['sys','abc','qwe'].indexOf(kbMode)<0)kbMode=coarse()?'abc':'sys';   // sys = rendszer/fizikai billentyűzet
+
+// 1 = kezdőbetű + a betűk ~40%-a adott, 2 = a betűk ~25%-a adott, 3 = semmi sincs beírva
 function pickGiven(n,lv){
   var idx=[],g=[];for(var i=0;i<n;i++)idx.push(i);
   if(lv===1){g=[0].concat(shuffle(idx.slice(1)).slice(0,Math.round((n-1)*0.4)));}
@@ -162,112 +187,175 @@ function pickGiven(n,lv){
   if(g.length>=n)g=g.slice(0,n-1);          // legalább egy üres vonal mindig marad
   return g;
 }
-// az ékezetes magánhangzókat elfogadjuk ékezet nélkül is (A = Á), a többi (Ö, Ő, Ü, Ű, Ñ) pontosan kell
+// az ékezetes magánhangzókat ékezet nélkül is elfogadjuk (A = Á), a többi (Ö, Ő, Ü, Ű, Ñ) pontosan kell
 var LENIENT={'Á':'A','É':'E','Í':'I','Ó':'O','Ú':'U'};
 function norm(c){c=String(c).toUpperCase();if(lang==='es'&&c==='Ü')return 'U';return LENIENT[c]||c;}
-
-// --- feladványok ---
-var W=window.WORDS,order=[],pos=0,cur=null,slots=[],locked=false,timer=null,lastIdx=-1;
-function usable(){var c=W.langs.indexOf(lang);return W.items.filter(function(it){return it[1+c];});}
-function nextEntry(){
-  var items=usable();
-  if(pos>=order.length){order=shuffle(items.map(function(_,i){return i;}));pos=0;if(order.length>1&&order[0]===lastIdx){var s=order[0];order[0]=order[1];order[1]=s;}}
-  var ix=order[pos++];lastIdx=ix;
-  var it=items[ix],name=it[1+W.langs.indexOf(lang)],parts=name.split(' ');
-  return {e:it[0],art:parts.length>1?parts[0]:'',word:parts[parts.length-1]};
+// kettős betűk csoportjai a szóban, pl. CSERESZNYE -> CS E R E SZ NY E
+function groupsOf(letters){
+  var list=((window.WORDS.digraphs&&window.WORDS.digraphs[lang])||[]).slice().sort(function(a,b){return b.length-a.length;}),out=[],i=0;
+  while(i<letters.length){
+    var n=1;
+    for(var k=0;k<list.length;k++)if(letters.slice(i,i+list[k].length).join('')===list[k]){n=list[k].length;break;}
+    out.push([i,n]);i+=n;
+  }
+  return out;
 }
+
+// --- feladványok: egy közös sorrend, így nyelvváltáskor ugyanaz az emoji marad, és az előző szóra is vissza lehet lépni ---
+var W=window.WORDS,seq=[],ptr=-1,bag=[],cur=null,slots=[],cursor=-1,pending=[],locked=false;
+function itemName(ix){return W.items[ix][1+W.langs.indexOf(lang)]||'';}
+function pickNew(){
+  for(var n=0;n<W.items.length+5;n++){
+    if(!bag.length)bag=shuffle(W.items.map(function(_,i){return i;}));
+    var ix=bag.pop();if(itemName(ix))return ix;
+  }
+  return 0;
+}
+function ensureItem(){while(!itemName(seq[ptr])){if(ptr<seq.length-1)ptr++;else{seq.push(pickNew());ptr=seq.length-1;}}}
+function goNext(){
+  if(ptr<seq.length-1)ptr++;else{seq.push(pickNew());ptr=seq.length-1;}
+  showItem();
+}
+function goPrev(){
+  if(ptr<=0)return;
+  ptr--;while(ptr>0&&!itemName(seq[ptr]))ptr--;
+  showItem();
+}
+function showItem(){
+  if(ptr<0){seq.push(pickNew());ptr=0;}
+  ensureItem();
+  var ix=seq[ptr],name=itemName(ix),parts=name.split(' ');
+  cur={e:W.items[ix][0],art:parts.length>1?parts[0]:'',word:parts[parts.length-1]};
+  build();
+  $('prevBtn').disabled=ptr<=0;
+  $('nextBtn').classList.remove('pulse');
+}
+
+// --- a beírás ---
 function say(txt,cls){var m=$('msg');m.textContent=txt;m.className='msg'+(cls?' '+cls:'');}
 function setVal(s,v){s.val=v;if(s.el)s.el.value=v;s.chEl.textContent=v;}
-function firstEditable(){for(var i=0;i<slots.length;i++)if(!slots[i].given)return slots[i];return null;}
-function firstEmpty(){for(var i=0;i<slots.length;i++)if(!slots[i].given&&!slots[i].val)return slots[i];return null;}
-function clearMarks(){slots.forEach(function(s){s.box.classList.remove('bad');});}
-function focusSlot(s){if(s&&s.el){try{s.el.focus();}catch(e){}}}
-function nextFocus(i){
-  var j,n=slots.length;
-  for(j=i+1;j<n;j++)if(!slots[j].given&&!slots[j].val){focusSlot(slots[j]);return;}
-  for(j=i+1;j<n;j++)if(!slots[j].given){focusSlot(slots[j]);return;}
+function markCursor(i){cursor=i;slots.forEach(function(s,k){s.box.classList.toggle('cur',k===i);});}
+function setCursor(i){
+  if(i<0||i>=slots.length)return;
+  markCursor(i);
+  if(kbMode==='sys'&&slots[i].el){try{slots[i].el.focus();}catch(e){}}
 }
-function prevFocus(i){
-  for(var j=i-1;j>=0;j--)if(!slots[j].given){var s=slots[j];setVal(s,'');clearMarks();focusSlot(s);return;}
+function addPending(i){if(pending.indexOf(i)<0){pending.push(i);pending.sort(function(a,b){return a-b;});}}
+function nextPending(i){
+  for(var k=0;k<pending.length;k++)if(pending[k]>i)return pending[k];
+  return pending.length?pending[0]:-1;
 }
 // a jó betű "beég": többé nem módosítható, és a helyes (ékezetes) alakban látszik
-function lockSlot(s){
-  s.given=true;s.box.classList.remove('bad');s.box.classList.add('lock');setVal(s,s.ch);
+function lockSlot(i){
+  var s=slots[i];s.given=true;s.box.classList.remove('bad');s.box.classList.add('lock');setVal(s,s.ch);
   if(s.el){s.el.readOnly=true;s.el.tabIndex=-1;}
+  pending=pending.filter(function(x){return x!==i;});
 }
-function putLetter(i,str){
-  var s=slots[i];if(locked||s.given)return;
-  var chars=Array.from(String(str)).filter(function(c){return /\p{L}/u.test(c);});
-  if(!chars.length){setVal(s,'');evaluate();return;}
-  setVal(s,chars[chars.length-1].toUpperCase());nextFocus(i);evaluate();
+function putAt(ch){
+  if(locked)return;
+  if(cursor<0||slots[cursor].given){var f=nextPending(cursor<0?-1:cursor);if(f<0)return;markCursor(f);}
+  var i=cursor,s=slots[i];
+  setVal(s,ch);s.box.classList.remove('bad');
+  pending=pending.filter(function(x){return x!==i;});
+  var n=nextPending(i);
+  if(n>=0)setCursor(n);else evaluate();   // az összes (még nem beégetett) vonal kitöltve: ellenőrzés
+}
+function typeLetters(str){
+  Array.from(String(str)).filter(function(c){return /\p{L}/u.test(c);}).forEach(function(c){putAt(c.toUpperCase());});
+}
+function backspace(){
+  if(locked||cursor<0)return;
+  var s=slots[cursor];
+  if(!s.given&&s.val){setVal(s,'');s.box.classList.remove('bad');addPending(cursor);say(t('hint'));return;}
+  for(var j=cursor-1;j>=0;j--)if(!slots[j].given&&slots[j].val){setVal(slots[j],'');slots[j].box.classList.remove('bad');addPending(j);setCursor(j);say(t('hint'));return;}
 }
 function evaluate(){
-  var ed=slots.filter(function(s){return !s.given;});
+  var ed=[];slots.forEach(function(s,i){if(!s.given)ed.push(i);});
   if(!ed.length){success();return;}
-  if(ed.some(function(s){return !s.val;})){clearMarks();say(t('hint'));return;}
-  var bad=ed.filter(function(s){return norm(s.val)!==norm(s.ch);});
+  var bad=ed.filter(function(i){return norm(slots[i].val)!==norm(slots[i].ch);});
   if(!bad.length){success();return;}
-  ed.forEach(function(s){if(bad.indexOf(s)<0)lockSlot(s);else s.box.classList.remove('bad');});
+  ed.forEach(function(i){if(bad.indexOf(i)<0)lockSlot(i);else slots[i].box.classList.remove('bad');});
   void document.body.offsetWidth;
-  bad.forEach(function(s){s.box.classList.add('bad');});
-  say(t('fix'),'err');focusSlot(bad[0]);
+  bad.forEach(function(i){slots[i].box.classList.add('bad');});
+  pending=bad.slice();                    // újra be kell írni a rossz betűket (akár többször is)
+  say(t('fix'),'err');setCursor(bad[0]);
 }
 function success(){
   locked=true;
-  slots.forEach(function(s){s.box.classList.remove('bad');s.box.classList.add('ok');setVal(s,s.ch);if(s.el)s.el.readOnly=true;});
+  slots.forEach(function(s){s.box.classList.remove('bad','cur');s.box.classList.add('ok');setVal(s,s.ch);if(s.el)s.el.readOnly=true;});
   say(t('great'),'ok');
   var c=$('card');c.classList.remove('pop');void c.offsetWidth;c.classList.add('pop');
-  try{$('hold').focus();}catch(e){}                      // a billentyűzet nyitva marad a váltás alatt
-  clearTimeout(timer);timer=setTimeout(function(){newWord(true);},1700);
+  $('nextBtn').classList.add('pulse');    // a következő szóra csak gombnyomásra lépünk
 }
-// segítség: az első üres vonalra (ha nincs ilyen, az első rosszra) beírja a helyes betűt, és az beég
+// segítség: az első még be nem írt vonalra beírja a helyes betűt, és az beég
 function help(){
   if(locked)return;
-  var s=firstEmpty()||firstEditable();if(!s)return;
-  lockSlot(s);
-  evaluate();
-  if(!locked){var n=firstEmpty()||firstEditable();focusSlot(n);}
+  var i=pending.length?pending[0]:-1;
+  if(i<0){for(var k=0;k<slots.length;k++)if(!slots[k].given){i=k;break;}}
+  if(i<0)return;
+  lockSlot(i);
+  if(pending.length)setCursor(nextPending(i));else evaluate();
 }
 function build(){
-  var box=$('word');box.innerHTML='';box.style.setProperty('--n',cur.word.length);
-  var letters=Array.from(cur.word),given=pickGiven(letters.length,level);
-  slots=[];
+  var box=$('word'),letters=Array.from(cur.word),given=pickGiven(letters.length,level);
+  box.innerHTML='';box.style.setProperty('--n',letters.length);
+  slots=[];pending=[];cursor=-1;locked=false;
   letters.forEach(function(ch,i){
     var isG=given.indexOf(i)>=0,div=mk('div','slot'+(isG?' given':'')),s={ch:ch,given:isG,val:isG?ch:'',box:div,el:null,chEl:mk('span','ch',isG?ch:'')};
     div.appendChild(s.chEl);
-    if(!isG){
+    div.addEventListener('click',function(){if(!s.given&&!locked)setCursor(i);});
+    if(!isG&&kbMode==='sys'){
       var inp=document.createElement('input');
       inp.type='text';inp.setAttribute('autocapitalize','characters');inp.setAttribute('autocomplete','off');inp.setAttribute('autocorrect','off');
       inp.setAttribute('inputmode','text');inp.setAttribute('enterkeyhint','next');inp.setAttribute('aria-label',t('letter')+' '+(i+1));
       inp.spellcheck=false;
-      inp.addEventListener('focus',function(){try{inp.select();}catch(e){}});
+      inp.addEventListener('focus',function(){markCursor(i);try{inp.select();}catch(e){}});
       inp.addEventListener('beforeinput',function(e){
         if(locked||s.given){e.preventDefault();return;}
-        if(e.inputType==='insertText'&&e.data){e.preventDefault();putLetter(i,e.data);}
-        else if(e.inputType==='deleteContentBackward'&&!inp.value){e.preventDefault();prevFocus(i);}
+        if(e.inputType==='insertText'&&e.data){e.preventDefault();typeLetters(e.data);}
+        else if(e.inputType==='deleteContentBackward'&&!inp.value){e.preventDefault();backspace();}
       });
-      inp.addEventListener('input',function(){if(!locked&&!s.given)putLetter(i,inp.value);});
+      inp.addEventListener('input',function(){if(!locked&&!s.given&&inp.value)typeLetters(inp.value);});
       inp.addEventListener('keydown',function(e){
-        if(locked||s.given)return;
-        if(e.key==='Backspace'||e.key==='Delete'){
-          e.preventDefault();
-          if(s.val){setVal(s,'');clearMarks();}else prevFocus(i);
-        }else if(e.key==='ArrowLeft'){e.preventDefault();prevFocus(i);}
-        else if(e.key==='ArrowRight'){e.preventDefault();nextFocus(i);}
+        if(locked){if(e.key==='Enter'){e.preventDefault();goNext();}return;}
+        if(s.given)return;
+        if(e.key==='Backspace'||e.key==='Delete'){e.preventDefault();backspace();}
+        else if(e.key==='ArrowLeft'){e.preventDefault();for(var j=i-1;j>=0;j--)if(!slots[j].given){setCursor(j);break;}}
+        else if(e.key==='ArrowRight'){e.preventDefault();for(var j2=i+1;j2<slots.length;j2++)if(!slots[j2].given){setCursor(j2);break;}}
       });
-      div.addEventListener('click',function(){if(!s.given&&!locked)focusSlot(s);});
       div.appendChild(inp);s.el=inp;
     }
-    box.appendChild(div);slots.push(s);
+    slots.push(s);if(!isG)pending.push(i);
+  });
+  groupsOf(letters).forEach(function(g){      // a kettős betűk vonalai összekötve
+    var parent=box;
+    if(g[1]>1){parent=mk('div','grp');box.appendChild(parent);}
+    for(var k=g[0];k<g[0]+g[1];k++)parent.appendChild(slots[k].box);
   });
   $('art').textContent=cur.art;
-  $('emoji').textContent=cur.e;$('emoji').setAttribute('aria-label','');
+  $('emoji').textContent=cur.e;
+  say(t('hint'));
+  var first=pending.length?pending[0]:-1;
+  if(first>=0)setTimeout(function(){setCursor(first);},0);
 }
-function newWord(keepFocus){
-  clearTimeout(timer);locked=false;
-  cur=nextEntry();build();say(t('hint'));
-  $('card').classList.remove('pop');
-  setTimeout(function(){focusSlot(firstEditable());},0);
+
+// --- billentyűzet ---
+function buildKb(){
+  var panel=$('kb');panel.innerHTML='';
+  document.body.classList.toggle('kbon',kbMode!=='sys');
+  if(kbMode==='sys'){panel.hidden=true;return;}
+  panel.hidden=false;
+  var kb=LANGS[lang].kb||LANGS.hu.kb,rows=(kb[kbMode]||kb.abc);
+  rows.forEach(function(row){
+    var r=mk('div','krow');
+    row.forEach(function(key){
+      var back=key==='⌫',b=mk('button','key'+(back?' back':(Array.from(key).length>1?' wide':'')));
+      if(back){b.innerHTML=icon('backspace');b.setAttribute('aria-label',t('erase'));}else b.textContent=key;
+      b.addEventListener('click',function(){if(back)backspace();else typeLetters(key);});
+      r.appendChild(b);
+    });
+    panel.appendChild(r);
+  });
 }
 
 // --- felület ---
@@ -276,20 +364,20 @@ function buildStars(){
   for(var i=1;i<=3;i++)(function(i){
     var b=mk('button','star'+(i<=level?' on':''));b.innerHTML=icon('star');b.setAttribute('aria-label',t('level')+' '+i);
     b.addEventListener('mousedown',function(e){e.preventDefault();});
-    b.addEventListener('click',function(){if(i===level)return;level=i;lsSet('abcLevel',String(level));buildStars();newWord();});
+    b.addEventListener('click',function(){if(i===level)return;level=i;lsSet('abcLevel',String(level));buildStars();showItem();});
     box.appendChild(b);
   })(i);
 }
-function buildLangList(){
-  var list=$('langlist');list.innerHTML='';
-  LORDER.forEach(function(k){
-    var b=mk('button','opt'+(k===lang?' on':''));
-    b.appendChild(flagEl(k));b.appendChild(mk('span','nm',LANGS[k].name));
-    b.addEventListener('click',function(){lang=k;lsSet('abcLang',lang);order=[];pos=0;applyLang();closeM();newWord();});
+function buildSettings(){
+  var list=$('setlist');list.innerHTML='';
+  [['sys','kb_sys','kb_sys_d'],['abc','kb_abc','kb_abc_d'],['qwe','kb_qwe','kb_qwe_d']].forEach(function(o){
+    var b=mk('button','opt'+(o[0]===kbMode?' on':'')),txt=mk('span','txt');
+    txt.appendChild(mk('span','nm',t(o[1])));txt.appendChild(mk('span','ds',t(o[2])));b.appendChild(txt);
+    b.addEventListener('click',function(){kbMode=o[0];lsSet('abcKb',kbMode);closeM();buildKb();showItem();});
     list.appendChild(b);
   });
 }
-var MODALS=['mlang','mabout'];
+var MODALS=['mset','mabout'];
 function openM(id){closeM();$(id).hidden=false;}
 function closeM(){MODALS.forEach(function(id){$(id).hidden=true;});}
 function anyOpen(){return MODALS.some(function(id){return !$(id).hidden;});}
@@ -299,18 +387,33 @@ function applyLang(){
   document.documentElement.lang=lang;document.title=t('title');
   qsa('[data-i18n]').forEach(function(el){el.textContent=t(el.getAttribute('data-i18n'));});
   qsa('.mclose').forEach(function(b){b.setAttribute('aria-label',t('close'));});
-  $('langBtn').innerHTML='';$('langBtn').appendChild(flagEl(lang));$('langBtn').setAttribute('aria-label',t('language'));
-  $('skipBtn').setAttribute('aria-label',t('skip'));$('helpBtn').setAttribute('aria-label',t('help'));
-  buildLangList();buildStars();
+  $('langBtn').innerHTML='';$('langBtn').appendChild(flagEl(lang));
+  $('langBtn').setAttribute('aria-label',t('language')+': '+LANGS[LORDER[(LORDER.indexOf(lang)+1)%LORDER.length]].name);
+  $('setBtn').setAttribute('aria-label',t('settings'));
+  $('helpBtn').setAttribute('aria-label',t('help'));$('prevBtn').setAttribute('aria-label',t('prev'));$('nextBtn').setAttribute('aria-label',t('next'));
+  buildSettings();buildStars();buildKb();
 }
-$('langBtn').addEventListener('click',function(){buildLangList();openM('mlang');});
+$('langBtn').addEventListener('click',function(){   // a zászlóra koppintva vált a nyelvek között
+  lang=LORDER[(LORDER.indexOf(lang)+1)%LORDER.length];lsSet('abcLang',lang);applyLang();showItem();
+});
+$('setBtn').addEventListener('click',function(){buildSettings();openM('mset');});
 $('aboutBtn').addEventListener('click',function(){openM('mabout');});
-$('skipBtn').addEventListener('click',function(){newWord();});
 $('helpBtn').addEventListener('click',help);
-['skipBtn','helpBtn'].forEach(function(id){$(id).addEventListener('mousedown',function(e){e.preventDefault();});});
-document.addEventListener('keydown',function(e){if(anyOpen()&&e.key==='Escape')closeM();});
+$('prevBtn').addEventListener('click',goPrev);
+$('nextBtn').addEventListener('click',goNext);
+['helpBtn','prevBtn','nextBtn'].forEach(function(id){$(id).addEventListener('mousedown',function(e){e.preventDefault();});});   // a rendszerbillentyűzet nyitva marad
+// fizikai billentyűk a saját billentyűzet módban (számítógépen)
+document.addEventListener('keydown',function(e){
+  if(anyOpen()){if(e.key==='Escape')closeM();return;}
+  if(kbMode==='sys'||e.ctrlKey||e.metaKey||e.altKey)return;
+  if(locked){if(e.key==='Enter'){e.preventDefault();goNext();}return;}
+  if(e.key==='Backspace'||e.key==='Delete'){e.preventDefault();backspace();}
+  else if(e.key==='ArrowLeft'){e.preventDefault();for(var j=cursor-1;j>=0;j--)if(!slots[j].given){setCursor(j);break;}}
+  else if(e.key==='ArrowRight'){e.preventDefault();for(var k=cursor+1;k<slots.length;k++)if(!slots[k].given){setCursor(k);break;}}
+  else if(e.key&&e.key.length===1&&/\p{L}/u.test(e.key)){e.preventDefault();typeLetters(e.key);}
+});
 qsa('[data-icon]').forEach(function(el){el.innerHTML=icon(el.getAttribute('data-icon'));});
-applyLang();newWord();
+applyLang();showItem();
 if('serviceWorker' in navigator&&/^https?:/.test(location.protocol)){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
 })();
 </script>
