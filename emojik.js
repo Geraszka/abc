@@ -3,10 +3,11 @@
 // A szavak NAGYBETŰSEK, szóköz nélkül. Spanyolban a névelő a szó előtt áll, szóközzel elválasztva (pl. 'EL PERRO'),
 // ez a játékban fix, kisebb betűkkel jelenik meg a kitöltendő vonalak fölött.
 // Új nyelv: vedd fel a "langs"-be (és a lang.js-be), majd minden sor végére írd be a szót. Ha egy nyelvnél üres a szó (''), az az emoji abban a nyelvben kimarad.
-// A "digraphs" a kettős (hármas) betűk listája nyelvenként: a feladványban ezek vonalai összekötve jelennek meg.
+// A "digraphs" a kettős (hármas) betűk listája nyelvenként: a feladványban ezek vonalai alatt szürke zárójel jelenik meg.
+// (A saját billentyűzeten a kiosztás szerint külön gombot csak a lang.js "kb" sorai adnak, a spanyolnál egyelőre nincs.)
 window.WORDS={
 langs:['hu','es'],
-digraphs:{hu:['DZS','CS','DZ','GY','LY','NY','SZ','TY','ZS']},
+digraphs:{hu:['DZS','CS','DZ','GY','LY','NY','SZ','TY','ZS'],es:['CH','LL','RR']},
 items:[
 // --- állatok ---
 ['🐶','KUTYA','EL PERRO'],['🐱','MACSKA','EL GATO'],['🐭','EGÉR','EL RATÓN'],['🐹','HÖRCSÖG','EL HÁMSTER'],['🐰','NYUSZI','EL CONEJO'],
