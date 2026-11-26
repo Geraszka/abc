@@ -3,7 +3,7 @@
 // kb.abc / kb.qwe: a saját billentyűzet sorai ("⌫" = törlés). Több betűs gomb (pl. "CS") egyszerre több vonalat tölt ki.
 window.LANGS={
 hu:{flag:'hu',name:'Magyar',title:'ABC Kids',language:'Nyelv',level:'Nehézség',letter:'Betű',
- help:'Segítség',prev:'Előző szó',next:'Következő szó',erase:'Törlés',
+ help:'Segítség',case:'Nagybetű / kisbetű',prev:'Előző szó',next:'Következő szó',erase:'Törlés',
  hint:'Írd be a hiányzó betűket.',fix:'Javítsd ki a pirossal jelölt betűket.',great:'Szuper!',close:'Bezár',
  settings:'Beállítások',
  kb_sys:'Rendszer billentyűzet',kb_sys_d:'Számítógépen a gombok, telefonon a telefon saját billentyűzete.',
@@ -19,7 +19,7 @@ hu:{flag:'hu',name:'Magyar',title:'ABC Kids',language:'Nyelv',level:'Nehézség'
           ['Y','X','C','V','B','N','M','⌫'],
           ['Á','É','Í','Ó','Ö','Ő','Ú','Ü','Ű']]}},
 es:{flag:'es',name:'Español',title:'ABC Kids',language:'Idioma',level:'Dificultad',letter:'Letra',
- help:'Ayuda',prev:'Palabra anterior',next:'Siguiente palabra',erase:'Borrar',
+ help:'Ayuda',case:'Mayúsculas / minúsculas',prev:'Palabra anterior',next:'Siguiente palabra',erase:'Borrar',
  hint:'Escribe las letras que faltan.',fix:'Corrige las letras marcadas en rojo.',great:'¡Muy bien!',close:'Cerrar',
  settings:'Ajustes',
  kb_sys:'Teclado del sistema',kb_sys_d:'En el ordenador las teclas, en el móvil el teclado del teléfono.',

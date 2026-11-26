@@ -34,6 +34,8 @@ button:disabled{opacity:.35;cursor:default}
 .filled{background:var(--primary);color:var(--on-primary)}
 .round{width:48px;height:48px;border-radius:16px;font-size:1.5rem;flex:none}
 .helpbtn{color:#f5b301}
+.casebtn{font-size:.95rem;font-weight:700;letter-spacing:.02em}
+body.lc .ch,body.lc .art,body.lc .key:not(.back){text-transform:lowercase}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.14)}}
 .pulse{animation:pulse .9s infinite}
 .flag{display:block;width:32px;height:24px;object-fit:cover;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.25)}
@@ -96,6 +98,7 @@ body.kbon .big{font-size:min(28vw,17vh,8.5rem);font-size:min(28vw,17dvh,8.5rem)}
   <header class="top">
     <h1 data-i18n="title"></h1>
     <button id="setBtn" class="tonal round" data-icon="keyboard"></button>
+    <button id="caseBtn" class="tonal round casebtn"></button>
     <button id="langBtn" class="tonal round"></button>
   </header>
   <div class="sub">
@@ -177,6 +180,7 @@ function flagEl(k){   // flags/<kód>.svg, ha hiányzik, a kód kétbetűs jele
 // --- beállítások: nehézség és billentyűzet ---
 var level=parseInt(lsGet('abcLevel'),10);if(!(level>=1&&level<=3))level=1;
 function coarse(){try{return window.matchMedia('(pointer:coarse)').matches;}catch(e){return false;}}
+var lc=lsGet('abcCase')==='lc';   // kisbetűs megjelenítés (a belső érték mindig nagybetű, csak a kép változik)
 var kbMode=lsGet('abcKb');if(['sys','abc','qwe'].indexOf(kbMode)<0)kbMode=coarse()?'abc':'sys';   // sys = rendszer/fizikai billentyűzet
 
 // 1 = kezdőbetű + a betűk ~40%-a adott, 2 = a betűk ~25%-a adott, 3 = semmi sincs beírva
@@ -306,7 +310,7 @@ function build(){
     div.addEventListener('click',function(){if(!s.given&&!locked)setCursor(i);});
     if(!isG&&kbMode==='sys'){
       var inp=document.createElement('input');
-      inp.type='text';inp.setAttribute('autocapitalize','characters');inp.setAttribute('autocomplete','off');inp.setAttribute('autocorrect','off');
+      inp.type='text';inp.setAttribute('autocapitalize',lc?'off':'characters');inp.setAttribute('autocomplete','off');inp.setAttribute('autocorrect','off');
       inp.setAttribute('inputmode','text');inp.setAttribute('enterkeyhint','next');inp.setAttribute('aria-label',t('letter')+' '+(i+1));
       inp.spellcheck=false;
       inp.addEventListener('focus',function(){markCursor(i);try{inp.select();}catch(e){}});
@@ -339,6 +343,13 @@ function build(){
   if(first>=0)setTimeout(function(){setCursor(first);},0);
 }
 
+// --- nagy- / kisbetű ---
+function applyCase(){
+  document.body.classList.toggle('lc',lc);
+  $('caseBtn').textContent=lc?'abc':'ABC';
+  $('caseBtn').setAttribute('aria-label',t('case')+': '+(lc?'abc':'ABC'));
+  slots.forEach(function(s){if(s.el)s.el.setAttribute('autocapitalize',lc?'off':'characters');});
+}
 // --- billentyűzet ---
 function buildKb(){
   var panel=$('kb');panel.innerHTML='';
@@ -391,17 +402,18 @@ function applyLang(){
   $('langBtn').setAttribute('aria-label',t('language')+': '+LANGS[LORDER[(LORDER.indexOf(lang)+1)%LORDER.length]].name);
   $('setBtn').setAttribute('aria-label',t('settings'));
   $('helpBtn').setAttribute('aria-label',t('help'));$('prevBtn').setAttribute('aria-label',t('prev'));$('nextBtn').setAttribute('aria-label',t('next'));
-  buildSettings();buildStars();buildKb();
+  buildSettings();buildStars();buildKb();applyCase();
 }
 $('langBtn').addEventListener('click',function(){   // a zászlóra koppintva vált a nyelvek között
   lang=LORDER[(LORDER.indexOf(lang)+1)%LORDER.length];lsSet('abcLang',lang);applyLang();showItem();
 });
 $('setBtn').addEventListener('click',function(){buildSettings();openM('mset');});
 $('aboutBtn').addEventListener('click',function(){openM('mabout');});
+$('caseBtn').addEventListener('click',function(){lc=!lc;lsSet('abcCase',lc?'lc':'uc');applyCase();});
 $('helpBtn').addEventListener('click',help);
 $('prevBtn').addEventListener('click',goPrev);
 $('nextBtn').addEventListener('click',goNext);
-['helpBtn','prevBtn','nextBtn'].forEach(function(id){$(id).addEventListener('mousedown',function(e){e.preventDefault();});});   // a rendszerbillentyűzet nyitva marad
+['helpBtn','prevBtn','nextBtn','caseBtn'].forEach(function(id){$(id).addEventListener('mousedown',function(e){e.preventDefault();});});   // a rendszerbillentyűzet nyitva marad
 // fizikai billentyűk a saját billentyűzet módban (számítógépen)
 document.addEventListener('keydown',function(e){
   if(anyOpen()){if(e.key==='Escape')closeM();return;}

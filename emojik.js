@@ -7,7 +7,7 @@
 // (A saját billentyűzeten a kiosztás szerint külön gombot csak a lang.js "kb" sorai adnak, a spanyolnál egyelőre nincs.)
 window.WORDS={
 langs:['hu','es'],
-digraphs:{hu:['DZS','CS','DZ','GY','LY','NY','SZ','TY','ZS'],es:['CH','LL','RR']},
+digraphs:{hu:['DZS','CS','DZ','GY','LY','NY','SZ','TY','ZS'],es:['CH','LL','RR','QU','GU','GÜ']},
 items:[
 // --- állatok ---
 ['🐶','KUTYA','EL PERRO'],['🐱','MACSKA','EL GATO'],['🐭','EGÉR','EL RATÓN'],['🐹','HÖRCSÖG','EL HÁMSTER'],['🐰','NYUSZI','EL CONEJO'],
